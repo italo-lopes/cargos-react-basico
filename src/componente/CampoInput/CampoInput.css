@@ -1,0 +1,25 @@
+.campo-texto {
+    margin: 1.5rem;
+}
+
+.campo-texto label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-size: 1.5rem
+}
+
+.campo-texto input {
+    background-color: #FFFFFF;
+    box-shadow:  10px 10px 30px rgba(0, 0, 0, 0.06);
+    width: 100%;
+    /* usando width 100 pq ele vai ocupar toda a tela do componete pai*/
+    font-size: 1.5rem;
+    padding : 1.5rem;
+    /* ele ocupa ate a borda sem ultrapasar a borda pai*/
+    box-sizing: border-box;
+}
+
+.campo-texto input:focus {
+    border-radius: 5px;
+    outline: 2px solid red;
+}

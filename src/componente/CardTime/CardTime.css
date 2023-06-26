@@ -1,0 +1,60 @@
+.card__time{
+    text-align: center;
+    padding: 2rem;
+    /*background-color: #D9F7E9;*/
+}
+
+.card__time h3{
+    font-size: 2rem;
+    border-bottom: 4px solid;
+    display: inline-block;
+    padding-bottom: 8px;
+}
+
+.card__time .lista__colaboradore{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    margin-top: 2rem;
+}
+
+
+/*
+.card__time__titulo{
+    text-align: center;
+}
+
+.card__time__lista{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+    list-style: none;
+}
+.card__time__item{
+    padding: 1rem 2.2rem;
+    z-index: 0;
+
+}
+
+.card__time__item_faixa{
+    background-color: blue;
+    padding: 2rem 6.2rem;
+
+}
+.card__time__item_foto{
+        background-color: white;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: space-around;
+        text-align: center;
+        top: 70%;
+        right: 95px;
+        left: center;        
+        z-index: 2;
+        padding: 1rem;
+}
+*/
