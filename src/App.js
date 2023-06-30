@@ -3,6 +3,7 @@ import Formulario from "./componente/Formulario";
 import CardTime from "./componente/CardTime";
 import { useState } from "react";
 import Rodape from "./componente/Rodape";
+import { v4 as uuidv4 } from "uuid";
 /*
 evitando duplicidade de componete com a criação do index pra cada componente
 import {useEffect} from 'react'
@@ -34,42 +35,84 @@ import React, { useState, useEffect } from 'react';
 // 20 Passo - Tentar seguir sempre o baby steps (passos de beber) primeiro a parte visual e depois o comportamento
 // 21 Passo  - Dinamico - o formulario adiciona um novo elemento no estado o estado re-refatora todos os elemento pelo map onde esse novo elemento e ligado
 // 22 Passo -  Entender a que evento ou comportamento um statefull esta acontecendo e o q ele tta mundando nos componentes
-// 23 Passo -  Testando cod- 1. Uso do Debugger 2. Fragment nativo do React-> 
+// 23 Passo -  Testando cod- 1. Uso do Debugger 2. Fragment nativo do React->
+// 24 Passso - Criar o features novas (ex: deletar)
+// 25 Passo -  Deletar conteudo (componete contruido de cima pra baixo) - função (evento de baixo pra cima passando a props como funçao)
+// 26 Passo -  npm install react-icons --save
+// 27 Passo -  ex: import {AiFillCloseCircle} from 'react-icons/ai';
+// 28 Passo - Como colar para visualização   <AiFillCloseCircle size={25} className="colaborador__deleetar" onClick={deletar} />
+// 29 Passo  - import com {} -> vem de um export normal e sem {} é um export default e só pode ter um por arquivo.
+// 30 Passo - Mas pode ter inumeros export sem ser default
+// 31 Passo - Criar id  com npm i uuid
+// 32 Passo - Como Importar pra utilização() import { v4 as uuidv4 } from 'uuid';
+// 33 Passo - Chamar ela geralemente id: uuid4()
+// 34 Passo - Se eu tiver que passa parametro num evento eu chamo uma function / arrow fuction
+// 35 Passo - Cadastrar de um formulario pra outro
+// 36 Passo - setTimes([...time,{ ...novoDepartamento,id: uuidv4() }]) adicionado um novo elemento dinamico
+// 37 Passo - inpu recebe o type pela props
+// 38 Passo -  setFormulario([...formulario, {...colaborador, id:uuidv4(), favorito:false}]); add um nome atributo com valor padrao
+// 39 Passo - utlizando obj declarativo pra compor o elemento {...propsFavoritar}
+// 40 Passo - Como criar um ternário para renderizar de forma opcional;
+// 41 Passo - A importância de se refatorar um componente em projetos React.
 function App() {
   // geralmente esse cara é do banco de dados.
-  const time = [
-   //o que é predeterminado
+
+  const [time, setTimes] = useState([
+    //o que é predeterminado
     {
-      id: 1,
+      id: uuidv4(),
       nome: "Departamento 1",
       corPrimaria: "#57C278",
       corSecundario: "#D9F7E9",
     },
     {
-      id: 2,
+      id: uuidv4(),
       nome: "Departamento 2",
       corPrimaria: "#82CFFA",
       corSecundario: "#E8F8FF",
     },
     {
-      id: 3,
+      id: uuidv4(),
       nome: "Departamento 3",
       corPrimaria: "#A6D157",
       corSecundario: "#F0F8E2",
     },
     {
-      id: 4,
+      id: uuidv4(),
       nome: "Departamento teste 4",
       corPrimaria: "#E06B69",
       corSecundario: "#FDE7E",
     },
-  ];
+  ]);
 
   // array vazio nao uma string pq não é uma lista react(hook)
-  const [formulario, setFormulario] = useState([]);
+  const [formulario, setFormulario] = useState([
+    {
+      id: uuidv4(),
+      campo: "italo",
+      cargo: "sup",
+      imagem: "http://github.com/italo-lopes.png",
+      lista: time[1].id,
+      favorito: false,
+    },
+    {
+      id: uuidv4(),
+      campo: "italo1",
+      cargo: "mid",
+      imagem: "http://github.com/italo-lopes.png",
+      lista: time[0].id,
+      favorito: false,
+    },
+  ]);
+  //console.log('------------------')
+  //console.log(formulario)
+
   function recebeColaborador(colaborador) {
-    console.log(formulario);
-    setFormulario([...formulario, colaborador]);
+    //console.log(formulario);
+    setFormulario([
+      ...formulario,
+      { ...colaborador, id: uuidv4(), favorito: false },
+    ]);
   }
 
   const tranformar = () => {
@@ -77,12 +120,61 @@ function App() {
     return time.map((item) => item.nome);
   };
 
+  function deletarColaborador(id) {
+    console.log("Deleter colaborador e atualizar colaborador");
+    console.log("na parte delete mais alta top1");
+    console.log(id);
+    setFormulario(formulario.filter((item) => item.id !== id));
+  }
+
+  console.log("na parte mais alta top1");
   //time.map((item)=>item.nome )
+
+  function mudarCorCard(corNova, id) {
+    console.log("A COR Nova é", corNova);
+    console.log("id: ", id);
+    setTimes(
+      time.map((item) => {
+        // if (item.nome === nome) {
+        if (item.id === id) {
+          item.corPrimaria = corNova;
+          //item.corSecundario = corNova;
+        }
+        return item;
+      })
+    );
+  }
+
+  function cadastrarDepartamento(novoDepartamento) {
+    console.log("mudar o state", novoDepartamento);
+    //const [time, setTimes]
+    setTimes([...time, { ...novoDepartamento, id: uuidv4() }]);
+  }
+
+  const mudarFavoritoColaborador = (id) => {
+    console.log("id:", id);
+    setFormulario(
+      formulario.map((element) => {
+        if (element.id === id) {
+          element.favorito
+            ? (element.favorito = false)
+            : (element.favorito = true);
+        }
+        return element;
+      })
+    );
+  };
+
+  // map precisa de retorno do item
   return (
     <div className="App">
       <Banner />
       <Formulario
+        cadastrarDepartamento={(novoDepartamento) =>
+          cadastrarDepartamento(novoDepartamento)
+        }
         timeNome={tranformar()}
+        timeCompleto={time}
         aoColaboradorCadastrado={(colaborador) =>
           recebeColaborador(colaborador)
         }
@@ -95,17 +187,19 @@ function App() {
         return (
           <CardTime
             key={item.id}
+            id={item.id}
             nome={item.nome}
             corPrimaria={item.corPrimaria}
             corSecundaria={item.corSecundario}
-            colaborador= {formulario.filter((it)=> it.lista === item.nome)}
-
+            novaFuncao={mudarCorCard}
+            colaborador={formulario.filter((it) => it.lista === item.id)}
+            aoDeletar={deletarColaborador}
+            mudarFavorito={mudarFavoritoColaborador}
           />
         );
       })}
 
       {/* 
-
          colaborador é um obj
          <CardTime nome={timenome}/>
          <CardTime nome="Departamento 2"/>
@@ -194,9 +288,7 @@ tem em sua raiz o state e ciclo de vida sem a necessidade do uso de Hooks
 
 */
 
-
-
-//Implementação 
+//Implementação
 /*
 1. componentes do figma
 2. cadastro de formulario statefull

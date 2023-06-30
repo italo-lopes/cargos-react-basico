@@ -3,10 +3,11 @@ import CampoInput from '../CampoInput';
 import ListaSuspensa from '../ListaSuspensa';
 import Botao from '../Botao';
 import { useState } from 'react';
+//import {v4 as uuidv4} from 'uuid';
 
 
 const Formulario = (props) => {
-    console.log(props)
+    console.log("a nova é",props)
     // colocar um array 
  /*
     const itensSelect = [
@@ -20,10 +21,13 @@ const Formulario = (props) => {
 
 
     //const [valor, setValor] = 
+    //closures
     const [campo,setCampo] = useState('')
     const [cargo,setCargo] = useState('')
     const [imagem,setImagem] = useState('')
     const [lista,setLista] = useState('')
+    const [novoDepartamento,setNovoDepartamento] = useState('')
+    const [cor,setCorDepartamento] = useState('#000000')
 
     const aoSalvar = (e) =>{
         e.preventDefault();
@@ -34,7 +38,9 @@ const Formulario = (props) => {
         console.log(e.target[2].value);
         console.log("Form submit =>" ,campo,cargo,imagem,lista)
         */
+       //const id  = uuidv4();
        props.aoColaboradorCadastrado({
+                //id,
                 campo,
                 cargo,
                 imagem,
@@ -44,14 +50,27 @@ const Formulario = (props) => {
        setCargo('')
        setImagem('')
        setLista('')
-
-
        // json é contruido passando (obj) = {"campo": campo, "cargo" : cargo ,"imagem": imagem , "lista":lista}    
     }
     
     const aoInvalidar = (e) =>{
         console.log(e.target);
     }
+
+
+    const aoSalvarDepartamento = (e) =>{
+        e.preventDefault();
+        //const corSecundaria = cor
+        props.cadastrarDepartamento({
+            nome:novoDepartamento,
+            corPrimaria:cor,
+            corSecundario:cor
+        })
+        setNovoDepartamento('')
+        setCorDepartamento('#000000')
+    }
+
+
     //const [valor, setValor] = 
     return(
         <section className="formulario">
@@ -62,6 +81,7 @@ const Formulario = (props) => {
                     obrigatorio = {true} 
                     label="Time" 
                     itens={props.timeNome}  
+                    itensTodos={props.timeCompleto}  
                     erro = "item" 
                     valor = {lista}
                     aoAlterar={(value)=>{
@@ -101,11 +121,38 @@ const Formulario = (props) => {
                     }// mandando uma funcao como parametro
                     }//uma funcao anima que passa como parametro o valor
                 />
-                    
-
-                
                 <Botao valor = "card">
                         Criar Card
+                </Botao>
+            </form> 
+            <form onSubmit={aoSalvarDepartamento} onInvalid = {aoInvalidar}> 
+            {/* </form><form onSubmit={()=>aoSalvar()}> */}
+                <h2>Prencha os dados do novo Departamento</h2>
+                <CampoInput 
+                    obrigatorio 
+                    label="Departamento" 
+                    placeholder="Digite o nome do Departamento"  
+                    erro = "campo"
+                    valor= {novoDepartamento}
+                    aoAlterar={(value)=>{
+                        setNovoDepartamento(value)
+                        }
+                    }
+                />
+                <CampoInput 
+                    obrigatorio
+                    type='color'
+                    label="Cor" 
+                    placeholder="Digite a cor" 
+                    erro = "cargo" 
+                    valor= {cor}
+                    aoAlterar={(value)=>{
+                        setCorDepartamento(value)
+                        }
+                    }
+                 />
+                <Botao valor = "card">
+                        Adicionar Departamento
                 </Botao>
             </form> 
         </section>

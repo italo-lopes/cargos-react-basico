@@ -1,9 +1,9 @@
 import "./ListaSuspensa.css";
 
-const ListaSuspensa = (props) => {
-//console.log(props)
+const ListaSuspensa = (props) => {  
+ // console.log("sdsd",props)
   const aoDigitar = (e)=>{
-         props.aoAlterar(e.target.value)
+         props.aoAlterar(e.target.value)  
   }
 
   return (
@@ -18,8 +18,8 @@ const ListaSuspensa = (props) => {
         <option value="6">6</option>
         <option value="italo">italo</option> */}
         <option value=""disabled>selecione</option>
-        {props.itens.map((elemento)=>{
-          return <option key = {elemento} value={elemento}>{elemento}</option>
+        {props.itensTodos.map((elemento)=>{
+          return <option key = {elemento.id} value={elemento.id}>{elemento.nome}</option>
         })}
       </select>
       {/* <span  data-campo = {props.erro} style = {{display: 'none'}} ></span> */}

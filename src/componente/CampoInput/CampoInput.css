@@ -1,14 +1,14 @@
-.campo-texto {
+.campo  {
     margin: 1.5rem;
 }
 
-.campo-texto label {
+.campo label {
     display: block;
     margin-bottom: 0.5rem;
     font-size: 1.5rem
 }
 
-.campo-texto input {
+.campo-text input[type=text] {
     background-color: #FFFFFF;
     box-shadow:  10px 10px 30px rgba(0, 0, 0, 0.06);
     width: 100%;
@@ -19,7 +19,13 @@
     box-sizing: border-box;
 }
 
-.campo-texto input:focus {
+    
+.campo-color input[type=color] {
+    background-color: #FFFFFF;
+
+}
+
+.campo input:focus {
     border-radius: 5px;
     outline: 2px solid red;
 }

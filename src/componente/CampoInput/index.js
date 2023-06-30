@@ -1,8 +1,15 @@
 import "./CampoInput.css"
-import { useState } from "react"
+//import { useState } from "react"
 // adicionar style no campo 
 
-const CampoInput = (props) =>{
+const CampoInput = ({
+    type = 'text',
+    placeholder,
+    valor,
+    obrigatorio=false,   
+    label, 
+    aoAlterar
+}) =>{
     //recebe um obj 
     // pra colocar um obj dentro do jsx {} 
     // e foi chamado pelo <CampoInput label="Nome"/>
@@ -50,28 +57,29 @@ const CampoInput = (props) =>{
 
 const aoDigitar = (e)=>{
      
-     props.aoAlterar(e.target.value)
+     aoAlterar(e.target.value)
        // props.children.aoAlteriar(e.target.value)
 }
 
 const aoSair = ()=>{
     //valor = e.target.value
-    console.log(props.valor)
+    console.log(valor)
     // função do react pra alterar o valor e renderizar o componete
 }
 
-const concaternar = ` ${props.placeholder} ... `
-    //console.log(props)
+const concaternar = ` ${placeholder} ... `
+    //console.log(props) - template string pra determinar o css do type
     return (
-        <div className="campo-texto">
+        <div className={` campo campo-${type}`}>
             <label>
-                {props.label}
+                {label}
             </label>
             <input 
-                value={props.valor} // caso chegue um valor predefinido e pode ser alterado            
+                type={type}
+                value={valor} // caso chegue um valor predefinido e pode ser alterado            
                 onChange={aoDigitar}
                 onBlur={aoSair}
-                required={props.obrigatorio}
+                required={obrigatorio}
                 placeholder={concaternar}
             />
             {/* <span  data-campo = {props.erro} style = {{display: 'none'}} > ERRO</span> */}
